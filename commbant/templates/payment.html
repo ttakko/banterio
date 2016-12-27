@@ -1,0 +1,24 @@
+{% load staticfiles %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'cssandimages/payment.css' %}">
+
+<form action="http://payments.webcourse.niksula.hut.fi/pay/" method="POST">
+    <input type="hidden" name="pid" value= {{ pid }} />
+    <input type="hidden" name="sid" value= {{ sid }} />
+    <input type="hidden" name="success_url"
+            value="http://afternoon-journey-91639.herokuapp.com/payment/success/{{ game_name }}/" />
+    <input type="hidden" name="cancel_url"
+            value="http://afternoon-journey-91639.herokuapp.com/payment/cancel" />
+    <input type="hidden" name="error_url"
+            value="http://afternoon-journey-91639.herokuapp.com/payment/error" />
+    <input type="hidden" name="checksum"
+            value={{ checksum }} />
+
+    <label for="id_amount"></label>
+    <input type="hidden" id="id_amount" name="amount" value= {{ amount }} />
+
+    <div id="container">
+        <input type="submit" value="Accept Payment"/>
+    </div>
+
+</form>

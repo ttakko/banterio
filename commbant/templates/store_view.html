@@ -1,0 +1,9 @@
+{% load staticfiles %}
+
+{% block title %}{{ section.title }}{% endblock %}
+<link rel="stylesheet" type="text/css" href="{% static 'cssandimages/game.css' %}">
+<strong>
+<p> Peli: {{ game.game_name }}
+<br> Price: {{ game.price }}
+
+</strong>

@@ -1,0 +1,7 @@
+{% extends "base_columns.html" %}
+{% block maincontent %}
+<h2>Pick gaem</h2>
+{% if errors %}<p class="errormsg">{{ errors }}</p>{% endif %}
+<h3>GEAEM</h3>
+{% include "buy_list.html" %}
+{% endblock %}

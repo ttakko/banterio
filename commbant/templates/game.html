@@ -1,0 +1,82 @@
+{% block content %}
+{% csrf_token %}
+{% load staticfiles %}
+<head>
+<link rel="stylesheet" type="text/css" href="{% static "cssandimages/game.css" %}">
+<script type="text/javascript" src="{% static "jquery-1.11.3.min.js" %}"></script>
+<link rel="icon" type="image/png" href="{% static "cssandimages/icon.png" %}">
+</head>
+{% block header %}
+{% include "header.html" %}
+{% endblock %}
+
+<body>
+  <div>
+    <h2>{{ game.game_name }}</h2>
+  </div>
+  <div class="container">
+      <iframe src="{{ game.link }}" id="gameframe"></iframe>
+  </div>
+  <script>
+  $(document).ready(function(){
+  'use strict';
+  window.addEventListener("message", function(evnt){
+    var data = evnt.data;
+  	if(data.messageType === "SCORE"){
+    //  console.log(data.score);
+      $.ajax({
+        type: "POST",
+        url: "/veryscore/",
+        data: {
+          'score': data.score,
+          'game_name': "{{ game.game_name }}"
+        },
+        success: function(message){
+  //        alert(message);
+        }
+      });
+    }
+    if(data.messageType === "SAVE"){
+      var gameState = JSON.stringify(data.gameState);
+      $.ajax({
+        type: "POST",
+        url: "/verysave/",
+        data: {
+          'gameState': gameState,
+          'game_name': "{{ game.game_name }}"
+        },
+        success: function(message){
+  //        alert(message);
+        }
+      });
+    }
+    if(data.messageType === "LOAD_REQUEST"){
+      var gameState = JSON.stringify(data.gameState);
+      $.ajax({
+        type: "POST",
+        url: "/veryload/",
+        data: {
+          'gameState': gameState,
+          'game_name': "{{ game.game_name }}"
+        },
+        success: function(message){
+          message = jQuery.parseJSON(message);
+          if(message.messageType === 'LOAD'){
+            message.gameState = $.parseJSON(message.gameState);
+            document.getElementById('gameframe').contentWindow.postMessage(message, '*');
+            } else if (message.messageType === 'ERROR') { // If there was an error, present it to the user
+              alert(message.info);
+            } else {
+              alert("Unexpected error");
+            }
+          }
+      });
+    }
+  });
+  });
+  </script>
+</body>
+{% block footer %}
+{% include "footer.html" %}
+{% endblock %}
+{% endblock %}

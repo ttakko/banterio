@@ -1,0 +1,59 @@
+{% load staticfiles %}
+
+<html>
+
+    <head>
+        <meta http-equiv="content-type" content="text/html"; charset="utf-8">
+        <meta name="viewport" content="width=device-width, minimium-scale=1.0, maxium-scale=1.0" />
+        <title>BESTEST GAEM SERVIEC - Login</title>
+        <link rel="stylesheet" type="text/css" href="reset.css">
+        <link rel="stylesheet" type="text/css" href="{% static 'cssandimages/logincss.css' %}">
+        <link href='http://fonts.googleapis.com/css?family=Crete+Round' rel="stylesheet" type="text/css">
+        <script src="lib/jquery-1.11.3.min.js"></script>
+    </head>
+
+    <body>
+
+        <header>
+            <div id="headercontainer">
+                <nav>
+                    <ul id="navone">
+                        <li><a href="/">BESTEST GAEM SERVIEC</a></li>
+                    </ul>
+                    <ul id="navtwo">
+                        <li><a href="/login">Login</a></li>
+                        <li><a href="/register">Register</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <div id="jumbotron">
+            <div id="container">
+
+                {% block content %}
+                <h2>Gibe passwerd plz</h2>
+                {% if form.errors %}
+                <p>You don goofd</p>
+                {% endif %}
+
+                <form method="post" action="{% url "gameservice.usermanagement.login" %}">
+                    {% csrf_token %}
+                    <table>
+                        {{ form }}
+                    </table>
+                    <p>
+                  <input type="hidden" name="next" value="/shop/" />
+                  <input id="button-1" type="submit" value="Login :D" />
+                    </p>
+                </form>
+                {% endblock %}
+
+            </div>
+        </div>
+        {% block footer %}
+        {% include "footer.html" %}
+        {% endblock %}
+    </body>
+
+</html>

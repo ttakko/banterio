@@ -1,0 +1,50 @@
+{% load staticfiles %}
+<html>
+
+    <head>
+        <meta http-equiv="content-type" content="text/html"; charset="utf-8">
+        <meta name="viewport" content="width=device-width, minimium-scale=1.0, maxium-scale=1.0" />
+        <title>GAEMSERVIEC</title>
+        <link rel="stylesheet" type="text/css">
+        <link rel="stylesheet" type="text/css" href="{% static 'cssandimages/gamelistcss.css' %}">
+        <link href='http://fonts.googleapis.com/css?family=Crete+Round' rel="stylesheet" type="text/css">
+        <script src="lib/jquery-1.11.3.min.js"></script>
+    </head>
+{% block content %}
+{% block header %}
+{% include "header.html" %}
+{% endblock %}
+    <body>
+        <div id="sos-image">
+            <div class="wrapper">
+              <div class="gameinfo">
+                    <strong>
+                    {% for game in games %}
+                    <div class="game">
+                    <h3>Name: {{ game.game_name }}
+                    <br>
+                    <p><br> Price: {{ game.price }}
+                    <br><a href="/scores/{{ game.game_name }}">HIGHSCORES</a>
+                    <br>
+                    <a href="/buy_item/{{ game.game_name }}">Buy gaem</a>
+                    </h3>
+                    Description: {{ game.game_desc }}
+                    <br>
+                    </div>
+                    </p>
+                    {% endfor %}
+                </strong>
+            </div>
+              </p>
+              {% csrf_token %}
+
+            </div>
+        </div>
+
+        {% block footer %}
+        {% include "footer.html" %}
+        {% endblock %}
+    </body>
+
+</html>
+{% endblock %}

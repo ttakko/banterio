@@ -1,0 +1,23 @@
+{% if items %}
+	{% if storages %}
+		{% for storage in storages %}
+		<h3>{{ storage.name }}</h3>
+		<ul class="buylist">
+			{% for item in items %}
+				{% if item.location == storage %}
+				<li><a class="buylink" data-prodid="{{ item.id }}" href="{% url "gameservice.shop.add_to_cart" game.game_id %}">
+						<img src="{{ game.image.url }}" alt="" />
+						<div class="itemname">{{ game.game_name }}</div>
+						<div class="itemprice">{{ game.price }} €</div>
+					</a>
+					</li>
+				{% endif %}
+			{% endfor %}
+		</ul>
+		{% endfor %}
+	{% else %}
+		<p>NOUP</p>
+	{% endif %}
+{% else %}
+<p class="no_buy">Buy something.</p>
+{% endif %}

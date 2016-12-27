@@ -1,0 +1,13 @@
+{% if cart %}
+<ul class="cart">
+	{% for item, count in cart.items %}
+	{% if not cart_locked %}<li><a href="{% url "gameservice.shop.remove_from_cart" game.id %}"><img src="{{ item.image.url }}" alt="" /> {{ game.game_name }}: {{ count }} * {{ game.price }} €</a></li>
+	{% else %}<li><img src="{{ game.image.url }}" alt="" /> {{ game.game_name }}: {{ count }} * {{ game.price }} €</li>
+	{% endif %}
+	{% endfor %}
+</ul>
+<p>Hinta: <strong class="hilite">{{ cartprice }} €</strong></p>
+{% if not cart_locked %}<p>Game removes by clicking.</p>{% endif %}
+{% else %}
+<p>Empty basket.</p>
+{% endif %}

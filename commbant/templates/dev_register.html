@@ -1,0 +1,52 @@
+{% load staticfiles %}
+{% block content %}
+<head>
+    <meta http-equiv="content-type" content="text/html"; charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimium-scale=1.0, maxium-scale=1.0" />
+    <title>GAEMSERVIEC</title>
+    <link rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="{% static 'cssandimages/gamelistcss.css' %}">
+    <link href='http://fonts.googleapis.com/css?family=Crete+Round' rel="stylesheet" type="text/css">
+    <script src="lib/jquery-1.11.3.min.js"></script>
+</head>
+
+{% block header %}
+{% include "header.html" %}
+{% endblock %}
+<body>
+  <div id=jumbotron>
+    <div id=container>
+  <form action="/register_developer/" method="post">
+    {% csrf_token %}
+    <label for="id_username">Username:</label>
+    {{ form.username }}
+    <br>
+    <label for="id_first_name">First Name:</label>
+    {{ form.first_name }}
+    <br>
+    <label for="id_last_name">Last Name:</label>
+    {{ form.last_name }}
+    <br>
+    <label for="id_email">Email:</label>
+    {{ form.email }}
+    <br>
+    <label for="id_password1">Password:</label>
+    {{ form.password1 }}
+    <br>
+    <label for="id_password2">Confirm your password:</label>
+    {{ form.password2 }}
+    <br>
+    <label for="id_credit">Your credit address (IBAN):</label>
+    {{ form.credit }}<br>
+    <input type="submit" value="Submit" />
+    <input type="hidden" name="next" value="/account/" />
+</form>
+</div>
+</div>
+
+
+{% block footer %}
+{% include "footer.html" %}
+{% endblock %}
+</body>
+{% endblock %}

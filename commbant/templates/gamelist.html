@@ -1,0 +1,68 @@
+{% load staticfiles %}
+<html>
+
+    <head>
+        <meta http-equiv="content-type" content="text/html"; charset="utf-8">
+        <meta name="viewport" content="width=device-width, minimium-scale=1.0, maxium-scale=1.0" />
+        <title>GAEMSERVIEC</title>
+        <link rel="stylesheet" type="text/css">
+        <link rel="stylesheet" type="text/css" href="{% static 'cssandimages/gamelistcss.css' %}">
+        <link href='http://fonts.googleapis.com/css?family=Crete+Round' rel="stylesheet" type="text/css">
+        <script src="lib/jquery-1.11.3.min.js"></script>
+    </head>
+
+    <header>
+      {% block content %}
+            <nav>
+                <ul id="navone">
+                    <li><a href="/">BESTEST GAEM SERVIEC</a></li>
+                </ul>
+                <ul id="navtwo">
+                  {% if user.is_authenticated %}
+                  <li><a>Hey, {{ user.username }}.</a></li>
+                  <li><a href="/store">Store</a></li>
+                  <li><a href="/account">Account</a></li>
+                  <li><a href="/logout">Logout</a></li>
+
+                  {% else %}
+                  <li><a href="/store">Store</a></li>
+                    <li><a href="/login">Login</a></li>
+                    <li><a href="/register">Register</a></li>
+                  {% endif %}
+                </ul>
+            </nav>
+    </header>
+    <body>
+        <div id="sos-image">
+            <div class="wrapper">
+              <div class="gameinfo">
+                    <strong>
+                    {% for game in games %}
+                    <div class="game">
+                    <h3><li><a href="/store/{{ game.game_name }}">Name: {{ game.game_name }}</a></li>
+                    <p><br> Price: {{ game.price }}
+                    </h3>
+                    Description: {{ game.game_desc }}
+                    <br>
+                    </div>
+                    </p>
+                    {% endfor %}
+                </strong>
+            </div>
+              </p>
+              {% csrf_token %}
+
+            </div>
+        </div>
+
+        <footer>
+            <div class="wrapper">
+                <div id="footer-info">
+                    <a>Copyright 2016 BESTEST GAEM SERVIEC. All rights reserved.</a>
+                </div>
+            </div>
+        </footer>
+    </body>
+
+</html>
+{% endblock %}

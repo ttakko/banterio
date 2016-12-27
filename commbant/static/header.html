@@ -1,0 +1,24 @@
+{% extends %}
+{% block content %}
+        <nav>
+            <ul id="navone">
+            <li><a href="/">BESTEST GAEM SERVIEC</a></li>
+            </ul>
+            <ul id="navtwo">
+              {% if user.is_authenticated %}
+              <li><a>Hey, {{ user.username }}.</a></li>
+              <li><a href="/store">Store</a></li>
+              <li><a href="/account">Account</a></li>
+              <li><a href="/logout">Logout</a></li>
+              {% if user.developer %}
+              <li><a href="/import/">Add Game</a></li>
+              <li><a href="/gamelist/dev/">Your games</a></li>
+              {% endif %}
+              {% else %}
+              <li><a href="/store">Store</a></li>
+              <li><a href="/login">Login</a></li>
+              <li><a href="/register">Register</a></li>
+              {% endif %}
+            </ul>
+        </nav>
+{% endblock %}

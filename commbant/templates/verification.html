@@ -1,0 +1,12 @@
+{% load staticfiles %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'cssandimages/verification.css' %}">
+{% block content %}
+<form action="/verification/" method="post">
+    {% csrf_token %}
+    <div id="container">
+        {{ form.code }}
+        <input id="button-1" type="submit" value="Submit" />
+    </div>
+</form>
+{% endblock %}

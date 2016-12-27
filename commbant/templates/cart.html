@@ -1,0 +1,7 @@
+<div id="cart">
+	<h2>Ostoskori</h2>
+	{% include "gameservice/templates/cart_contents.html" %}
+	{% if cart %}
+	<p><a class="superlink" href="{% url "gameservice.shop.clear_cart" %}">Tyhjennä kori</a></p>
+	{% endif %}
+</div>
